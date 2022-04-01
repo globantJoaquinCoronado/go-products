@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  products:
+    image: products
+    restart: always
+    environment:
+      - MONGODB_HOST=mongo
+    depends_on:
+      - mongo
+    ports:
+      - "8000:8000"
+    networks:
+      - go-network
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - $PWD/data:/data/db
+    networks:
+      - go-network
+networks:
+  go-network:
